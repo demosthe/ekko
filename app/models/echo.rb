@@ -1,2 +1,2 @@
-class Echo < ActiveRecord::Base
+class Ekko < ActiveRecord::Base
 end
