@@ -33,6 +33,9 @@ gem 'spring',        group: :development
 # Soundcloud for storing ekkos
 gem 'soundcloud'
 
+# Figaro for hiding secrets
+gem 'figaro'
+
 group :development, :test do
   gem 'rspec-rails', '2.14.1'
   gem 'factory_girl_rails'
