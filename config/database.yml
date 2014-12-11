@@ -1,0 +1,15 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+development:
+  <<: *default
+  database: ekko_development
+test:
+  <<: *default
+  database: ekko_test
+production:
+  <<: *default
+  database: ekko_production
+  username: ekko
+  password: <%= ENV['EKKO_DATABASE_PASSWORD'] %>
