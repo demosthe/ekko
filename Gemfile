@@ -37,7 +37,7 @@ gem 'soundcloud'
 gem 'figaro'
 
 group :development, :test do
-  gem 'rspec-rails', '2.14.1'
+  gem 'rspec-rails', '~> 3.0'
   gem 'factory_girl_rails'
   gem 'pry'
   gem 'pry-remote'
@@ -45,7 +45,7 @@ group :development, :test do
 end
 
 group :test do
- gem "faker", "~> 1.1.2"
- gem "capybara", "~> 2.1.0"
- gem "database_cleaner", "~> 1.0.1"
+ gem 'faker'
+ gem 'capybara'
+ gem 'database_cleaner'
 end
