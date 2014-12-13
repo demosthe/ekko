@@ -3,8 +3,9 @@ class EkkosController < ApplicationController
   end
 
   def index
-    @username = @user_client.get('/me').username
+    user_hash = @user_client.get('/me')
+    @username = user_hash.username
 
-    @top_tracks = @client.get('/tracks', :limit => 10, :order => 'hotness')
+    @user_tracks = @user_client.get("/me/tracks")
   end
 end
