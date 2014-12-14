@@ -7,5 +7,6 @@ class EkkosController < ApplicationController
     @username = user_hash.username
 
     @user_tracks = @user_client.get("/me/tracks")
+
   end
 end
