@@ -1,14 +1,18 @@
 class ApplicationController < ActionController::Base
+  before_action :authenticate_user!
+  before_action :setup_soundcloud_client
+  before_action :login_soundcloud_user
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  before_action :setup_soundcloud_client
+  # general soundsound client
   def setup_soundcloud_client
     @client = SoundCloud.new(:client_id => ENV['soundcloud_client_id'])
   end
 
-  before_action :login_soundcloud_user
+  # user soundcloud client
   def login_soundcloud_user
     @user_client = SoundCloud.new({
       :client_id     => ENV['soundcloud_client_id'],
