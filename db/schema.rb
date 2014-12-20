@@ -16,12 +16,6 @@ ActiveRecord::Schema.define(version: 20141219020735) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "echos", force: true do |t|
-    t.string   "soundlink"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
