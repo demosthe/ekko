@@ -43,7 +43,8 @@ gem 'devise'
 # gem 'omniauth'
 
 # template language
-gem 'haml'
+#gem 'haml'
+gem 'slim'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
