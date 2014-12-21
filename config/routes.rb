@@ -1,9 +1,7 @@
 Rails.application.routes.draw do
-  devise_for :users
   root to: "ekkos#index"
+  devise_for :users
 
   resources :users, only: [:show]
-
-  #todo: social network authentication
-  #devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  resources :relationships, only: [:create, :destroy]
 end

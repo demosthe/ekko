@@ -6,10 +6,10 @@ feature "User tries follow an user" do
     user2 = create :user
 
     login_as user1
-    visit user_path user1
-    click_link "Follow"
+    visit user_path user2
+    click_button "Follow"
 
-    expect(page).to have_content("You are now following #{user.username}")
+    expect(page).to have_content("You are now following #{user2.username}")
   end
 
   scenario "cannot follow user himself" do
