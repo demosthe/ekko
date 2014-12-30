@@ -46,12 +46,17 @@ gem 'devise'
 #gem 'haml'
 gem 'slim'
 
+# Bootstrap
+gem 'bootstrap-sass', '~> 3.1.1.0'
+gem 'autoprefixer-rails'
+
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'factory_girl_rails'
   gem 'pry'
   gem 'pry-remote'
   gem 'pry-nav'
+  gem 'quiet_assets'
 end
 
 group :test do
