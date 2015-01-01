@@ -5,6 +5,10 @@ class EkkosController < ApplicationController
   def index
     user_hash = @user_client.get('/me')
     @username = user_hash.username
-    @user_tracks = @user_client.get("/me/tracks")
+    @ekkos = @user_client.get("/me/tracks")
+
+    #for every user that I am following
+    #  get their ekkos
+    #  add their ekkos to @ekkos
   end
 end

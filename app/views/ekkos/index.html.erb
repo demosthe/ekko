@@ -1,8 +1,8 @@
 
-<% @user_tracks.each do |track| %>
+<% @ekkos.each do |ekko| %>
   <p>
     <% embed_info = @client.get('/oembed',
-                                url: track.uri,
+                                url: ekko.uri,
                                 maxheight: 130,
                                 maxwidth: 500) %>
     <%= embed_info['html'].html_safe %>
