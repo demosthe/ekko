@@ -13,7 +13,10 @@ class EkkosController < ApplicationController
 
     user_hash = @client.get('/resolve',
                             url: 'https://soundcloud.com/lords-recovery-cdo/')
-    user_tracks_hash = @client.get("/users/#{user_hash['id']}/tracks")
-    @ekkos.concat(user_tracks_hash)
+    user_tracks_hash =
+      @client.get("/users/#{user_hash['id']}/tracks")
+
+    @ekkos = @ekkos.concat(user_tracks_hash).
+      paginate(page: params[:page], per_page: 7)
   end
 end
