@@ -12,9 +12,8 @@ class EkkosController < ApplicationController
     #  add their ekkos to @ekkos
 
     user_hash = @client.get('/resolve',
-               url: 'https://soundcloud.com/csocut/')
+                            url: 'https://soundcloud.com/lords-recovery-cdo/')
     user_tracks_hash = @client.get("/users/#{user_hash['id']}/tracks")
-    #first_track_id = user_tracks_hash.first['id']
-    @ekkos << user_tracks_hash.first
+    @ekkos.concat(user_tracks_hash)
   end
 end
