@@ -50,6 +50,9 @@ gem 'slim'
 gem 'bootstrap-sass', '~> 3.1.1.0'
 gem 'autoprefixer-rails'
 
+# Pagination
+gem 'will_paginate-bootstrap'
+
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'factory_girl_rails'
