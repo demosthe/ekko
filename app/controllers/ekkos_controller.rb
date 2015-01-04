@@ -7,7 +7,7 @@ class EkkosController < ApplicationController
     @username = user_hash.username
     @ekkos = @user_client.get("/me/tracks")
 
-    #for every user that I am following
+    # algorithm: for every user that I am following
     #  get their ekkos
     #  add their ekkos to @ekkos
 
@@ -16,7 +16,10 @@ class EkkosController < ApplicationController
     user_tracks_hash =
       @client.get("/users/#{user_hash['id']}/tracks")
 
-    @ekkos = @ekkos.concat(user_tracks_hash).
-      paginate(page: params[:page], per_page: 7)
+    @ekkos.concat(user_tracks_hash)
+
+    @ekkos.sort! { |a,b| b['id'] <=> a['id'] }
+
+    @ekkos = @ekkos.paginate(page: params[:page], per_page: 7)
   end
 end
