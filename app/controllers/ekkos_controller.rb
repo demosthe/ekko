@@ -3,8 +3,6 @@ class EkkosController < ApplicationController
   end
 
   def index
-    user_hash = @user_client.get('/me')
-    @username = user_hash.username
     @ekkos = @user_client.get("/me/tracks")
 
     # algorithm: for every user that I am following
