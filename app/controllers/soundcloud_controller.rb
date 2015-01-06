@@ -3,6 +3,7 @@ class SoundcloudController < ApplicationController
   end
 
   def users
-    @soundcloud_users = nil
+    @soundcloud_users = @client.get('/users',
+                                 q: params["query"])
   end
 end
