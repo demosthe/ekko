@@ -8,5 +8,9 @@ Rails.application.routes.draw do
       get :search
     end
   end
+
   resources :relationships, only: [:create, :destroy]
+
+  get "search_soundcloud" => "soundcloud#search"
+  get "soundcloud_users" => "soundcloud#users"
 end

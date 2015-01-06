@@ -18,6 +18,6 @@ class EkkosController < ApplicationController
 
     @ekkos.sort! { |a,b| b['id'] <=> a['id'] }
 
-    @ekkos = @ekkos.paginate(page: params[:page], per_page: 7)
+    @ekkos = @ekkos.paginate(page: params[:page], per_page: 4)
   end
 end
