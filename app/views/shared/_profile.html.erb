@@ -1,0 +1,6 @@
+<%= user.username %>
+<%= link_to user.username, user_path(user) %>
+<%= user.email %>
+<% if signed_in? %>
+  <%= render partial: "shared/follow_form", locals: {user: @user} %>
+<% end %>

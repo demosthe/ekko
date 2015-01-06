@@ -1,6 +1,9 @@
-
-<% @soundcloud_users.each do |user| %>
-  <%= user.full_name %> |
-  <%= user.username %>
-  <br/>
-<% end %>
+<div class="col-md-10 col-xs-12 col-sm-9">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <%= render partial: "soundcloud_user_table", locals: {soundcloud_users: @soundcloud_users} %>
+      </div>
+    </div>
+  </div>
+</div>
