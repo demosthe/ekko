@@ -1,6 +1,4 @@
 
-<%= will_paginate @ekkos, renderer: BootstrapPagination::Rails %>
-
 <% @ekkos.each do |ekko| %>
   <p>
     <% embed_info = @client.get('/oembed',
@@ -10,3 +8,5 @@
     <%= embed_info['html'].html_safe %>
   </p>
 <% end %>
+
+<%= will_paginate @ekkos, renderer: BootstrapPagination::Rails %>

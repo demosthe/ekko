@@ -1,7 +1,13 @@
 @import "bootstrap";
 
+.container ul {
+  float: left;
+}
+
 .nav li {
   padding-left: 1em;
   list-style-type: disc;
-  font-size: 20px;
+  font-size: 18px;
 }
+
+
