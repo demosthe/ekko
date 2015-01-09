@@ -12,5 +12,6 @@ Rails.application.routes.draw do
   resources :relationships, only: [:create, :destroy]
 
   get "search_soundcloud" => "soundcloud#search"
+  post "import_soundcloud_user" => "soundcloud#import_user"
   get "soundcloud_users" => "soundcloud#users"
 end

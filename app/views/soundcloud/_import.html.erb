@@ -1,0 +1,7 @@
+<%= form_tag(import_soundcloud_user_path, method: :post) do %>
+  <%= hidden_field_tag :soundcloud_id, user.id %>
+  <%= hidden_field_tag :username, user.username %>
+  <%= submit_tag "Import", class: "btn btn-large btn-primary" %>
+<% end %>
+
+
