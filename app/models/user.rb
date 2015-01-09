@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
     dependent: :destroy
 
   def following?(other_user)
-    relationships.find_by(followed_id: other_user.id)
+    relationships.find_by(followed_id: other_user.id).present?
   end
 
   def follow!(other_user)

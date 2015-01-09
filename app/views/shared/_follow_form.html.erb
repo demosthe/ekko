@@ -1,4 +1,17 @@
 <% unless current_user == user %>
+  <% binding.pry%>
+  <% if user.subscriptions.nil? %>
+    <%
+      soundcloud_user = user
+      user = User.find_by(soundcloud_id: soundcloud_user.id)
+      #todo: we are 'synching' every time, is there better way to do this?
+      user.username = soundcloud_user.username
+      user.password = ENV["default_user_password"]
+      user.email = "fakeemail@gmail.con"
+      user.save!
+    %>
+  <% end %>
+
   <% if current_user.following?(user) %>
     <%= render partial: 'shared/unfollow', locals: {user: user} %>
   <% else %>
