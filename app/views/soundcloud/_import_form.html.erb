@@ -1,7 +1,6 @@
-<% if User.find_by(soundcloud_id: user.id).nil? %>
-  <%= render partial: 'import', locals: {user: user} %>
-<% elsif current_user.following?(user) %>
-  <%= render partial: 'shared/unfollow', locals: {user: user} %>
+<% user_by_soundcloud_id = User.find_by(soundcloud_id: user.id) %>
+<% if user_by_soundcloud_id.nil? %>
+  <%= render partial: "import", locals: {user: user} %>
 <% else %>
-  <%= render partial: 'shared/follow', locals: {user: user} %>
+  <%= render partial: "shared/follow_form", locals: {user: user_by_soundcloud_id} %>
 <% end %>
