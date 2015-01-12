@@ -9,4 +9,9 @@ class UsersController < ApplicationController
   def index
     @users = User.all
   end
+
+  def following
+    user = current_user
+    @users = user.followed_users
+  end
 end

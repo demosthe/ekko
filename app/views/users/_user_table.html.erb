@@ -1,0 +1,22 @@
+<div class="table-responsive">
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Username (full name)</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <body>
+      <% users.each do |user| %>
+        <tr>
+          <td>
+            <%= user.username %>
+          </td>
+          <td>
+            <%= render partial: "shared/follow_form", locals: {user: user} %>
+          </td>
+        </tr>
+      <% end %>
+    </body>
+  </table>
+</div>
