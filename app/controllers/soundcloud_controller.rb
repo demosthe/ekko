@@ -11,7 +11,7 @@ class SoundcloudController < ApplicationController
     user = User.new(soundcloud_id: params[:soundcloud_id])
     user.username = params[:username]
     user.password = ENV["default_user_password"]
-    user.email = "importfromsoundcloud@fake.com"
+    user.email = "#{params[:username]}@soundcloud.com"
     user.save!
 
     redirect_to :back
