@@ -6,9 +6,7 @@ class EkkosController < ApplicationController
     @ekkos = @user_client.get("/me/tracks")
 
     current_user.followed_users.each do |user|
-      user_hash = @client.get("/resolve",
-                              url: "https://soundcloud.com/#{user.username}/")
-      user_tracks_hash = @client.get("/users/#{user_hash['id']}/tracks")
+      user_tracks_hash = @client.get("/users/#{user.soundcloud_id}/tracks")
       @ekkos.concat(user_tracks_hash)
     end
 
