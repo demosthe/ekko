@@ -1,4 +1,8 @@
 class SoundcloudController < ApplicationController
+  def record
+
+  end
+
   def search
     if params["query"].present?
       @soundcloud_users = @client.
