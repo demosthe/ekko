@@ -3,7 +3,7 @@ class EkkosController < ApplicationController
   end
 
   def index
-    @ekkos = @user_client.get("/me/tracks")
+    @ekkos = @client.get("/me/tracks")
 
     current_user.followed_users.each do |user|
       user_tracks_hash = @client.get("/users/#{user.soundcloud_id}/tracks")
