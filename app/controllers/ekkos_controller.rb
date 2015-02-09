@@ -3,6 +3,7 @@ class EkkosController < ApplicationController
   end
 
   def index
+    #todo: get only public tracks
     @ekkos = @client.get("/me/tracks")
 
     current_user.followed_users.each do |user|
@@ -10,7 +11,9 @@ class EkkosController < ApplicationController
       @ekkos.concat(user_tracks_hash)
     end
 
-    @ekkos.sort! { |a,b| b['id'] <=> a['id'] }
+    @ekkos.delete_if {|ekko| ekko.sharing != "public"}
+
+    #@ekkos.sort! { |a,b| b['id'] <=> a['id'] }
     @ekkos = @ekkos.paginate(page: params[:page], per_page: 4)
   end
 end
