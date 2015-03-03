@@ -2,12 +2,11 @@
 <script src="//connect.soundcloud.com/sdk.js"></script>
 <script>
   SC.initialize({
-    client_id: "c202b469a633a7a5b15c9e10b5272b78",
-    redirect_uri: "http://connect.soundcloud.com/examples/callback.html"
+    client_id: "29a23004556336f69f9cd958f9b3af97",
+    redirect_uri: "http://localhost:3000/soundcloud-callback.html"
   });
 
   $("#recorderUI.reset #controlButton").live("click", function(e){
-      alert("yep");
     updateTimer(0);
     SC.record({
       start: function(){
@@ -49,19 +48,26 @@
   $("#upload").live("click", function(e){
     setRecorderUIState("uploading");
 
-    SC.connect({
-      connected: function(){
-        $("#uploadStatus").html("Uploading...");
-        SC.recordUpload({
-          track: {
-            title: "Untitled Recording",
-            sharing: "private"
-          }
-        }, function(track){
-          $("#uploadStatus").html("Uploaded: <a href='" + track.permalink_url + "'>" + track.permalink_url + "</a>");
-        });
-      }
-    });
+    var upload = function(){
+      $("#uploadStatus").html("Uploading...");
+      SC.recordUpload({
+        track: {
+          title: "something",
+          sharing: "public"
+        }
+      }, function(track){
+      //document.getElementsByName('commit')[0].disabled = false;
+      $("#uploadStatus").html("Uploaded: <a href='" + track.permalink_url + "'>" + track.permalink_url + "</a>");
+      });
+    }
+
+    if (SC.isConnected()) {
+      alert ("is connected");
+      upload();
+    } else {
+      alert ("not connected");
+      upload();
+    }
 
     e.preventDefault();
   });
@@ -78,13 +84,19 @@
 </script>
 
 <div id="recorderUI" class="reset">
-  Here it is
-  <a href="#" id="controlButton" class="record">
+  <a href="#" id="controlButton" class="btn btn-large">
+    Record:
     <span id="timer">0:00</span>
   </a>
+
+  <br/><br/>
+
   <div id="otherControls">
-    <a href="#" id="reset" class="button">Reset</a>
-    <a href="#" id="upload" class="button">Upload</a>
+    <a href="#" id="reset" class="btn btn-large">Reset</a>
+    <a href="#" id="upload" class="btn btn-large btn-primary">Upload</a>
   </div>
+
+  <br/><br/>
+
   <div id="uploadStatus">Upload status ...</div>
 </div>
