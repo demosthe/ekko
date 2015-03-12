@@ -1,102 +1,85 @@
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script src="//connect.soundcloud.com/sdk.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<title>Recorder and Connect With SoundCloud</title>
+<link rel="stylesheet" type="text/css" href="example.css" />
+</head>
+<body>
+<script type="text/javascript" src="http://connect.soundcloud.com/2/latest.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<script type="text/javascript" src="recorder.js"></script>
+
 <script>
-  SC.initialize({
-    client_id: "29a23004556336f69f9cd958f9b3af97",
-    redirect_uri: "http://localhost:3000/soundcloud-callback.html"
-  });
 
-  $("#recorderUI.reset #controlButton").live("click", function(e){
-    updateTimer(0);
-    SC.record({
-      start: function(){
-        setRecorderUIState("recording");
-      },
-      progress: function(ms, avgPeak){
-        updateTimer(ms);
-      }
-    });
-    e.preventDefault();
-  });
+Recorder.initialize({
+  alert("inside")
+  swfSrc: "recorder.swf"
+  alert("done")
+});
 
-  $("#recorderUI.recording #controlButton, #recorderUI.playing #controlButton").live("click", function(e){
-    setRecorderUIState("recorded");
-    SC.recordStop();
-    e.preventDefault();
-  });
 
-  $("#recorderUI.recorded #controlButton").live("click", function(e){
-    updateTimer(0);
-    setRecorderUIState("playing");
-    SC.recordPlay({
-      progress: function(ms){
-        updateTimer(ms);
-      },
-      finished: function(){
-        setRecorderUIState("recorded");
-      }
-    });
-    e.preventDefault();
-  });
-
-  $("#reset").live("click", function(e){
-    SC.recordStop();
-    setRecorderUIState("reset");
-    e.preventDefault();
-  });
-
-  $("#upload").live("click", function(e){
-    setRecorderUIState("uploading");
-
-    var upload = function(){
-      $("#uploadStatus").html("Uploading...");
-      SC.recordUpload({
-        track: {
-          title: "something",
-          sharing: "public"
-        }
-      }, function(track){
-      //document.getElementsByName('commit')[0].disabled = false;
-      $("#uploadStatus").html("Uploaded: <a href='" + track.permalink_url + "'>" + track.permalink_url + "</a>");
-      });
+function record(){
+  alert ("what's going on")
+  Recorder.record({
+    start: function(){
+    alert("recording starts now. press stop when youre done. and then play or upload if you want.");
+    },
+    progress: function(milliseconds){
+    document.getElementById("time").innerHTML = timecode(milliseconds);
     }
-
-    if (SC.isConnected()) {
-      alert ("is connected");
-      upload();
-    } else {
-      alert ("not connected");
-      upload();
-    }
-
-    e.preventDefault();
   });
+}
 
-  function updateTimer(ms){
-    $("#timer").text(SC.Helper.millisecondsToHMS(ms));
-  }
-
-  function setRecorderUIState(state){
-    // state can be reset, recording, recorded, playing, uploading
-    // visibility of buttons is managed via CSS
-    $("#recorderUI").attr("class", state);
-  }
+function play(){
+Recorder.stop();
+Recorder.play({
+progress: function(milliseconds){
+document.getElementById("time").innerHTML = timecode(milliseconds);
+}
+});
+}
+function stop(){
+Recorder.stop();
+}
+function upload(){
+SC.connect({
+client_id: "aHT5HITYm8vlkWNabL0Qg",
+redirect_uri: "http://recorder.dev/examples/soundcloud-callback.html",
+connected: function(){
+Recorder.upload({
+url: "https://api.soundcloud.com/tracks.json?oauth_token=" + SC.options.access_token,
+audioParam: "track[asset_data]",
+params: {
+"track[title]": "recorder.js track test",
+"track[sharing]": "private"
+},
+success: function(responseText){
+var track = $.parseJSON(responseText)
+window.location = track.permalink_url;
+}
+});
+},
+error: function(err){
+alert(err)
+}
+})
+}
 </script>
-
-<div id="recorderUI" class="reset">
-  <a href="#" id="controlButton" class="btn btn-large">
-    Record:
-    <span id="timer">0:00</span>
-  </a>
-
-  <br/><br/>
-
-  <div id="otherControls">
-    <a href="#" id="reset" class="btn btn-large">Reset</a>
-    <a href="#" id="upload" class="btn btn-large btn-primary">Upload</a>
-  </div>
-
-  <br/><br/>
-
-  <div id="uploadStatus">Upload status ...</div>
+<div id="wrapper">
+<h1><a href="http://github.com/jwagener/recorder">Recorder Example</a></h1>
+<p>
+This is a very basic example for the Recorder.js.
+Checkout <a href="http://github.com/jwagener/recorder">GitHub</a> for details and have a look at the source for this file.
+Start by clicking record:
+</p>
+<div>
+<a href="javascript:record()" id="record" >Record</a>
+<a href="javascript:play()" id="play" >Play</a>
+<a href="javascript:stop()" id="stop" >Stop</a>
+<a href="javascript:upload()" id="upload" >Upload to SoundCloud</a>
 </div>
+<span id="time">0:00</span>
+</div>
+</body>
+</html>
